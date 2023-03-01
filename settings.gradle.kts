@@ -1,0 +1,1 @@
+rootProject.name = "com.itis.timetable.itis-timetable-parser-2"
