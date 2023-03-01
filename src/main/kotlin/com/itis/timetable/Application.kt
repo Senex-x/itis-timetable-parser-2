@@ -14,3 +14,6 @@ fun Application.module() {
     configureSecurity()
     configureRouting()
 }
+
+// java -cp build/libs/com.itis.timetable.itis-timetable-parser-2-0.0.1.jar com.itis.timetable.ApplicationKt
+// ./gradlew buildFatJar
