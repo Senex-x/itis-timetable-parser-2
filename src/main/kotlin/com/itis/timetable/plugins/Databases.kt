@@ -10,9 +10,13 @@ import io.ktor.server.routing.*
 
 fun Application.configureDatabases() {
     
-    val dbConnection: Connection = connectToPostgres(embedded = true)
+    val dbConnection: Connection = connectToPostgres(embedded = false)
     val cityService = CityService(dbConnection)
     routing {
+        get("/add") {
+            val id = cityService.create(City("sample", -1))
+            call.respondText(HttpStatusCode.Created.toString())
+        }
         // Create city
         post("/cities") {
             val city = call.receive<City>()
