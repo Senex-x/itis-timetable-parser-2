@@ -4,9 +4,17 @@ import com.itis.timetable.plugins.configureDatabases
 import com.itis.timetable.plugins.configureRouting
 import com.itis.timetable.plugins.configureSecurity
 import com.itis.timetable.plugins.configureSerialization
+import com.typesafe.config.ConfigFactory
 import io.ktor.server.application.*
+import io.ktor.server.engine.*
+import io.ktor.server.netty.*
 
-fun main(args: Array<String>): Unit = io.ktor.server.netty.EngineMain.main(args)
+// fun main(args: Array<String>): Unit = io.ktor.server.netty.EngineMain.main(args)
+
+fun main() {
+    embeddedServer(Netty, port = 8080, host = "0.0.0.0", module = Application::module)
+        .start(wait = true)
+}
 
 fun Application.module() {
     configureSerialization()

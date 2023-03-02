@@ -1,5 +1,6 @@
 package com.itis.timetable.plugins
 
+import com.typesafe.config.ConfigFactory
 import io.ktor.http.*
 import io.ktor.server.request.*
 import io.ktor.server.response.*
@@ -74,9 +75,10 @@ fun Application.connectToPostgres(embedded: Boolean): Connection {
     if (embedded) {
         return DriverManager.getConnection("jdbc:h2:mem:test;DB_CLOSE_DELAY=-1", "root", "")
     } else {
-        val url = environment.config.property("postgres.url").getString()
-        val user = environment.config.property("postgres.user").getString()
-        val password = environment.config.property("postgres.password").getString()
+        val config = ConfigFactory.load()
+        val url = config.getString("postgres.url")
+        val user = config.getString("postgres.user")
+        val password = config.getString("postgres.password")
 
         return DriverManager.getConnection(url, user, password)
     }
